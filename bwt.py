@@ -1,5 +1,3 @@
-__author__ = 'Fanney'
-
 # marker for the end of the string
 marker = "$"
 

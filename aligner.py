@@ -1,5 +1,3 @@
-__author__ = 'Fanney'
-
 import bwt
 
 print(bwt.run_bwt("banana"))
