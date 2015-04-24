@@ -43,9 +43,6 @@ class Align(object):
 
             # if top bound = bottom bound, then the string is not found.
             if top == bot:
-                print (-1,-1)
+                return (-1,-1)
 
-        print (top,bot)
-
-andy = Align("aac", "acaacg")
-andy.bounds()
+        return (top,bot)
