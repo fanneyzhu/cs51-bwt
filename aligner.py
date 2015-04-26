@@ -46,3 +46,13 @@ class Align(object):
                 return (-1,-1)
 
         return (top,bot)
+        
+    # returns the index of the query string
+    # function walks left from query until $ is reached and
+    #  counts number of steps (i.e., index of query)
+    def from_start (self, idx):
+        qidx = 0
+        i = idx
+        while self.sequence[i] != "$":
+            qidx += 1
+        return qidx
