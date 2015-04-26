@@ -8,7 +8,10 @@ class Aligner(object):
 
     # find the first occurrence of c in sorted sequence with marker
     def occ(self, c):
-        return sorted(self.sequence+bwt.marker).index(c)
+        try:
+            return sorted(self.sequence+bwt.marker).index(c)
+        except ValueError:
+            return 0
 
     # find the number of occurrences of c before position i in bwt(sequence)
     def count(self, i, c):
@@ -58,11 +61,11 @@ class Aligner(object):
         matches = self.find_index(query)
         print "Your query \"%s\" ..." % query
         if matches == None:
-            print "does not align to the sequence \"%s\")" % self.sequence
+            print "does not align to the sequence \"%s\"" % self.sequence
         else:
             print "aligns to the sequence \"%s\" at index(es):" % self.sequence
             print ", ".join(map(str, matches))
 
 
 andy = Aligner("banana")
-andy.align("ac")
+andy.align("anana")
