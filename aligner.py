@@ -65,7 +65,3 @@ class Aligner(object):
         else:
             print "aligns to the sequence \"%s\" at index(es):" % self.sequence
             print ", ".join(map(str, matches))
-
-
-andy = Aligner("banana")
-andy.align("anana")
