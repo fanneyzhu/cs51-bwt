@@ -1,20 +1,18 @@
 import bwt
 
-print(bwt.run_bwt("banana"))
-
 class Aligner(object):
     def __init__(self, sequence):
         self.sequence = sequence
 
     # find the first occurrence of c in sorted sequence with marker
-    def occ(self, c):
+    def __occ(self, c):
         try:
             return sorted(self.sequence+bwt.marker).index(c)
         except ValueError:
             return 0
 
     # find the number of occurrences of c before position i in bwt(sequence)
-    def count(self, i, c):
+    def __count(self, i, c):
         str = bwt.run_bwt(self.sequence)
         n = 0
         for i in range(i):
@@ -23,12 +21,12 @@ class Aligner(object):
         return n
 
     # add result of occ and count
-    def lf(self, i, c):
-        return self.occ(c) + self.count(i, c)
+    def __lf(self, i, c):
+        return self.__occ(c) + self.__count(i, c)
 
     # find the first and last suffix positions for the query seq
     # in the BWT transformed string
-    def bounds(self, query):
+    def __bounds(self, query):
         top = 0
         bot = len(self.sequence)+1
 
@@ -37,8 +35,8 @@ class Aligner(object):
 
             # use LF function to map the position in the last
             # column to the position in the first column
-            top = self.lf(top, c)
-            bot = self.lf(bot, c)
+            top = self.__lf(top, c)
+            bot = self.__lf(bot, c)
 
             # if top bound = bottom bound, then the string is not found.
             if top == bot:
@@ -47,8 +45,8 @@ class Aligner(object):
         return (top,bot)
         
     # returns the index at which the match occurs in the query string
-    def find_index(self, query):
-        matches = self.bounds(query)
+    def __find_index(self, query):
+        matches = self.__bounds(query)
 
         if matches == (-1, -1):
             return None
@@ -58,8 +56,8 @@ class Aligner(object):
             return result
 
     def align(self, query):
-        matches = self.find_index(query)
-        print "Your query \"%s\" ..." % query
+        matches = self.__find_index(query)
+        print "Your query \"%s\"" % query,
         if matches == None:
             print "does not align to the sequence \"%s\"" % self.sequence
         else:
