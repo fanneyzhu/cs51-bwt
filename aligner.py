@@ -1,4 +1,6 @@
 import bwt
+import color
+import sys
 
 class Aligner(object):
     def __init__(self, sequence):
@@ -57,9 +59,17 @@ class Aligner(object):
 
     def align(self, query):
         matches = self.__find_index(query)
-        print "Your query \"%s\"" % query,
+        print color.BOLD + "Your query \"%s\"" % query,
         if matches == None:
-            print "does not align to the sequence \"%s\"" % self.sequence
+            print "does not align in the sequence \"%s\"" % self.sequence + color.END
         else:
-            print "aligns to the sequence \"%s\" at index(es):" % self.sequence
-            print ", ".join(map(str, matches))
+            print "aligns to the sequence \"%s\" starting at index(es):" % self.sequence
+            print ", ".join(map(str, sorted(matches))) + color.END
+
+if __name__ == "__main__":
+    try:
+        x = Aligner(sys.argv[1])
+        x.align(sys.argv[2])
+    except:
+        print color.RED + "Please run in command line: python aligner.py sequence query" + color.END
+        print color.RED + "Note: The sequence cannot contain \"%s\"" % bwt.marker + color.END
