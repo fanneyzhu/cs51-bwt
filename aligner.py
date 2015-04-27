@@ -59,12 +59,22 @@ class Aligner(object):
 
     def align(self, query):
         matches = self.__find_index(query)
-        print color.color.BOLD + "Your query \"%s\"" % query,
+        bold = color.color.BOLD
+        end = color.color.END
+        print bold + "Your query \"%s\"" % query,
         if matches == None:
-            print "does not align in the sequence \"%s\"" % self.sequence + color.color.END
+            print "does not align in the sequence \"%s\"" % self.sequence + end
         else:
-            print "aligns to the sequence \"%s\" starting at index(es):" % self.sequence
-            print ", ".join(map(str, sorted(matches))) + color.color.END
+            print "aligns to the sequence \"%s\": " % self.sequence
+            for match in sorted(matches):
+                for x in range(0, len(self.sequence)):
+                    if match == x:
+                        query_end = x+len(query)
+                        found = color.color.PURPLE + self.sequence[x:query_end] + end
+                        print bold+self.sequence[0:x]+found+bold+self.sequence[query_end:],
+                        print "(index: %s to %s)" % (match, query_end),
+                        print end
+                        break
 
 if __name__ == "__main__":
     try:
