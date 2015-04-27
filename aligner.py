@@ -1,9 +1,11 @@
 import bwt
+import sys
+
 
 class Aligner(object):
     def __init__(self, sequence):
-        self.sequence = sequence
-
+        self.sequence = sys.argv[1] #sequence
+        self.query = sys.argv[2]
     # find the first occurrence of c in sorted sequence with marker
     def __occ(self, c):
         try:
@@ -62,4 +64,4 @@ class Aligner(object):
             print "does not align to the sequence \"%s\"" % self.sequence
         else:
             print "aligns to the sequence \"%s\" at index(es):" % self.sequence
-            print ", ".join(map(str, matches))
+            print ", ".join(map(str, sorted(matches)))
