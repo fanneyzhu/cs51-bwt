@@ -72,7 +72,10 @@ class Aligner(object):
                         query_end = x+len(query)
                         found = color.color.PURPLE + self.sequence[x:query_end] + end
                         print bold+self.sequence[0:x]+found+bold+self.sequence[query_end:],
-                        print "(index: %s to %s)" % (match, query_end-1),
+                        if match == query_end-1:
+                            print "(index: %s)" % match
+                        else:
+                            print "(index: %s to %s)" % (match, query_end-1),
                         print end
                         break
 
