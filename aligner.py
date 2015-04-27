@@ -4,8 +4,7 @@ import sys
 
 class Aligner(object):
     def __init__(self, sequence):
-        self.sequence = sys.argv[1] #sequence
-        self.query = sys.argv[2]
+        self.sequence = sequence
         
     # find the first occurrence of c in sorted sequence with marker
     def __occ(self, c):
