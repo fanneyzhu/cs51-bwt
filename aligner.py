@@ -4,8 +4,8 @@ import sys
 
 class Aligner(object):
     def __init__(self, sequence):
-        self.sequence = sequence
-
+        self.sequence = sys.argv[1] #sequence
+        self.query = sys.argv[2]
     # find the first occurrence of c in sorted sequence with marker
     def __occ(self, c):
         try:
@@ -59,17 +59,17 @@ class Aligner(object):
 
     def align(self, query):
         matches = self.__find_index(query)
-        print color.BOLD + "Your query \"%s\"" % query,
+        print color.color.BOLD + "Your query \"%s\"" % query,
         if matches == None:
-            print "does not align in the sequence \"%s\"" % self.sequence + color.END
+            print "does not align in the sequence \"%s\"" % self.sequence + color.color.END
         else:
             print "aligns to the sequence \"%s\" starting at index(es):" % self.sequence
-            print ", ".join(map(str, sorted(matches))) + color.END
+            print ", ".join(map(str, sorted(matches))) + color.color.END
 
 if __name__ == "__main__":
     try:
         x = Aligner(sys.argv[1])
         x.align(sys.argv[2])
     except:
-        print color.RED + "Please run in command line: python aligner.py sequence query" + color.END
-        print color.RED + "Note: The sequence cannot contain \"%s\"" % bwt.marker + color.END
+        print color.color.RED + "Please run in command line: python aligner.py sequence query" + color.color.END
+        print color.color.RED + "Note: The sequence cannot contain \"%s\"" % bwt.marker + color.color.END
