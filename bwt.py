@@ -1,3 +1,6 @@
+import sys
+import color
+
 # marker for the end of the string
 marker = "$"
 
@@ -25,3 +28,10 @@ def run_bwt(str):
     result = "".join(str[index-1] for index in index_array)
 
     return result
+
+if __name__ == "__main__":
+    try:
+        print color.color.BOLD + run_bwt(sys.argv[1]) + color.color.END
+    except:
+        print color.color.RED + "Please run in command line: python bwt.py sequence.txt query" + color.color.END
+        print color.color.RED + "Note: The sequence cannot contain \"%s\"" % marker + color.color.END

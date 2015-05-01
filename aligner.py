@@ -61,11 +61,14 @@ class Aligner(object):
         matches = self.__find_index(query)
         bold = color.color.BOLD
         end = color.color.END
-        print bold + "Your query \"%s\"" % query,
+        print("\n")
         if matches == None:
-            print "does not align in the sequence \"%s\"" % self.sequence + end
+            print bold + "No matches found to your query." + end
         else:
-            print "aligns to the sequence \"%s\": " % self.sequence
+            print bold + "%d matches found to your query. See in matches.txt or below.\n\n" % len(matches) + end
+            output = open("matches.txt", "w")
+            output.write("%d match(es) found to your query: \n%s\n\n" % (len(matches), query))
+            output.write("Match(es) found at index(es):\n")
             for match in sorted(matches):
                 for x in range(0, len(self.sequence)):
                     if match == x:
@@ -73,16 +76,20 @@ class Aligner(object):
                         found = color.color.PURPLE + self.sequence[x:query_end] + end
                         print bold+self.sequence[0:x]+found+bold+self.sequence[query_end:],
                         if match == query_end-1:
-                            print "(index: %s)" % match,
+                            print "(index: %s)\n" % match,
+                            output.write("%s\n" % match)
                         else:
-                            print "(index: %s to %s)" % (match, query_end-1),
+                            print "(index: %s to %s)\n" % (match, query_end-1),
+                            output.write("%s to %s\n" % (match, query_end-1))
                         print end
                         break
+            output.write("\nReference sequence:\n%s" % self.sequence)
 
 if __name__ == "__main__":
     try:
-        x = Aligner(sys.argv[1])
+        f = open(sys.argv[1])
+        x = Aligner(f.read())
         x.align(sys.argv[2])
     except:
-        print color.color.RED + "Please run in command line: python aligner.py sequence query" + color.color.END
+        print color.color.RED + "Please run in command line: python aligner.py sequence.txt query" + color.color.END
         print color.color.RED + "Note: The sequence cannot contain \"%s\"" % bwt.marker + color.color.END
