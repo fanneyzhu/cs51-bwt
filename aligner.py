@@ -66,7 +66,7 @@ class Aligner(object):
             print bold + "No matches found to your query." + end
         else:
             print bold + "%d matches found to your query. See in matches.txt or below.\n\n" % len(matches) + end
-            output = open("matches.txt", "w")
+            output = open("output.txt", "w")
             output.write("%d match(es) found to your query: \n%s\n\n" % (len(matches), query))
             output.write("Match(es) found at index(es):\n")
             for match in sorted(matches):
@@ -87,8 +87,8 @@ class Aligner(object):
 
 if __name__ == "__main__":
     try:
-        f = open(sys.argv[1])
-        x = Aligner(f.read())
+        file = open(sys.argv[1])
+        x = Aligner(file.read())
         x.align(sys.argv[2])
     except:
         print color.color.RED + "Please run in command line: python aligner.py sequence.txt query" + color.color.END
